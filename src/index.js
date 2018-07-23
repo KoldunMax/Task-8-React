@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { createStore, applyMiddleware } from 'redux'
 
+
 const increment = () => ({
   type: "INCREMENT"
 });
