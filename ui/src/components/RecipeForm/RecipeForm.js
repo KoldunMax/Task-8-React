@@ -15,10 +15,10 @@ export default class RecipeForm extends React.Component {
     }
 
     handleFieldChange = ({ target }) => {
-        this.setState(state => ({
-            ...state,
-            [target.name]: target.value
-        })
+            this.setState(state => ({
+                ...state,
+                [target.name]: target.value
+            })
         );
     }
 

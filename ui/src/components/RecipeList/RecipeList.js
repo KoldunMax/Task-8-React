@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Button, Card } from 'semantic-ui-react';
+import { Image, Button, Card, Rating, Container } from 'semantic-ui-react';
 import dish from '../../assets/dish.png';
 
 export default ({ recipes, onEdit, onDelete, onView }) =>
@@ -29,6 +29,11 @@ export default ({ recipes, onEdit, onDelete, onView }) =>
                     icon="eye" 
                     floated="right" 
                     onClick={() => onView && onView(recipe._id)} 
+                />
+                <Rating 
+                    icon='star' 
+                    defaultRating={0} 
+                    maxRating={5} 
                 />
                 <Card.Header style={{ marginTop: '1.5em' }}>
                     {recipe.title}
