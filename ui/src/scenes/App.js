@@ -5,7 +5,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import createStore from './../store';
 import history from '../store/history';
-import Recipes from './../containers/Recipes';
+import Recipes from './../containers/Recipes/Recipes';
 import RecipeCreation from './../containers/RecipeCreation/RecipeCreation';
 import RecipeEditing from './../containers/RecipeEditing/RecipeEditing';
 
