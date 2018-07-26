@@ -18,7 +18,8 @@ class Recipes extends React.Component {
 
         this.state = {
             activeRecipe: null,
-            searchValue: ''
+            searchValue: '',
+            directionOfSort: ''
         };
     }
 
@@ -44,7 +45,6 @@ class Recipes extends React.Component {
         this.props.history.push(`/recipes/new`);
     }
     handleUpdateRating = (recipe) => {
-        console.log(recipe);
         this.props.actions.updateRecipeRating(recipe);
     }
 
@@ -56,6 +56,12 @@ class Recipes extends React.Component {
 
     handleModalClose = () => {
         this.toggleRecipeModal(null);
+    }
+
+    handleSort = (e) => {
+        this.setState({
+            directionOfSort: e
+        })
     }
 
     filterList = (searchValue, allRecipes) => {
@@ -74,17 +80,37 @@ class Recipes extends React.Component {
         }            
     }
 
+    sorting(arrayOfRecipes, directionOfSort) {
+        
+        if(directionOfSort == "Increas"){
+
+            return arrayOfRecipes.sort(function(a, b) {
+                return  b.rating - a.rating
+            }) 
+        }
+
+        if(directionOfSort == "Decrease"){
+
+            return arrayOfRecipes.sort(function(a, b) {
+                return  a.rating - b.rating
+            }) 
+        }
+
+        return arrayOfRecipes;
+    }
+
     showState = () => {
         console.log(this.state.searchValue);
     }
 
     render() {
         const { isFetching, allRecipes } = this.props;
-        const { activeRecipe, searchValue } = this.state;
+        const { activeRecipe, searchValue, directionOfSort} = this.state;
         
         let filteredMassiveOfRecipes = this.filterList(searchValue, allRecipes);
-       
-       return (<Container>
+        let sortedMas = this.sorting(filteredMassiveOfRecipes, directionOfSort);
+        console.log(sortedMas);
+        return (<Container>
             <Grid centered columns={1}>
                 <Grid.Column>
                     <Image src={logo} centered />
@@ -101,9 +127,10 @@ class Recipes extends React.Component {
                                         onCreate={this.handleRecipeCreate} 
                                         listLength={allRecipes.length} 
                                         onChange={this.setSearchValue}
+                                        onDirectionSort={this.handleSort} 
                                     />
                                     <RecipeList
-                                        recipes={filteredMassiveOfRecipes}
+                                        recipes={sortedMas}
                                         onUpdateRating={this.handleUpdateRating}
                                         onView={this.toggleRecipeModal} 
                                         onDelete={this.handleDelete} 
@@ -118,6 +145,7 @@ class Recipes extends React.Component {
             <RecipeModal 
                 recipe={activeRecipe} 
                 onClose={this.handleModalClose} 
+                onUpdateRating={this.handleUpdateRating}
             />
         </Container>)
     }

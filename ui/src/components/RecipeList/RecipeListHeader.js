@@ -2,12 +2,11 @@ import React from 'react';
 import { Button, Container, Input, Dropdown, Menu } from 'semantic-ui-react';
 
 const options = [
-    { key: 1, text: 'No sort', value: 1 },
-    { key: 2, text: 'Up to Down', value: 2 },
-    { key: 3, text: 'Down to up', value: 3 },
+    { key: 1, text: 'Increas', value: 1 },
+    { key: 2, text: 'Decrease', value: 2 },
 ]
 
-export default ({ onCreate, listLength, onChange }) => (
+export default ({ onCreate, listLength, onChange, onDirectionSort }) => (
     <Container style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
     
         <Button
@@ -41,7 +40,8 @@ export default ({ onCreate, listLength, onChange }) => (
                 <Dropdown 
                     text='Sorting' 
                     options={options} 
-                    simple item     
+                    simple item   
+                    onChange={(e) => onDirectionSort && onDirectionSort(e.target.innerText)} 
                 />
             </Menu>
         </Button.Group>

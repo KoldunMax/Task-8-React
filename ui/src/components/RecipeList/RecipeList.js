@@ -10,16 +10,16 @@ export default ({ recipes, onEdit, onDelete, onView, onUpdateRating }) => (
             <Card.Content>
                 <Image centered src={dish} style={{ marginBottom: '.5rem' }}/>
                 <Card.Header>{recipe.title}</Card.Header>
-                <Card.Meta><Rating 
+                <Card.Meta>
+                    <label>Rating:</label> <br />
+                    <Rating 
                     icon='star'
-                    defaultRating={recipe.rating} 
+                    rating={recipe.rating} 
                     maxRating={5}
                     onRate={(evaluate) => {
                         recipe.rating = evaluate.target.getAttribute('aria-posinset');
-                        console.log(recipe.rating);
                         return onUpdateRating && onUpdateRating(recipe)
                     }}
-                  //  onClick={() => onRating && onRating(recipe._id)}
                  /></Card.Meta>
                 <Card.Description>
                     {recipe.description}
