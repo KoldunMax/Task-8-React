@@ -6,7 +6,7 @@ const options = [
     { key: 2, text: 'Decrease', value: 2 },
 ]
 
-export default ({ onCreate, listLength, onChange, onDirectionSort }) => (
+export default ({ onCreate, listLength, onChange, onDirectionSort, onShowShortList }) => (
     <Container style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
     
         <Button
@@ -34,6 +34,7 @@ export default ({ onCreate, listLength, onChange, onDirectionSort }) => (
                 icon="list" 
                 content="Show recipes" 
                 color="purple" 
+                onClick={() => onShowShortList && onShowShortList()}
             ></Button>
             <Button.Or />
             <Menu compact color='blue'>

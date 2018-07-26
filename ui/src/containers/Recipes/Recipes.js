@@ -10,6 +10,7 @@ import RecipeList from '../../components/RecipeList/RecipeList';
 import RecipeListHeader from '../../components/RecipeList/RecipeListHeader';
 import EmptyRecipeList from '../../components/RecipeList/EmptyRecipeList';
 import RecipeModal from '../../components/RecipeModal/RecipeModal';
+import RecipeModals from '../../components/RecipeModals/RecipeModals';
 import './Recipes.css';
 
 class Recipes extends React.Component {
@@ -19,7 +20,8 @@ class Recipes extends React.Component {
         this.state = {
             activeRecipe: null,
             searchValue: '',
-            directionOfSort: ''
+            directionOfSort: '',
+            activeShortRecipes: null
         };
     }
 
@@ -56,6 +58,9 @@ class Recipes extends React.Component {
 
     handleModalClose = () => {
         this.toggleRecipeModal(null);
+        this.setState({
+            activeShortRecipes: null
+        })
     }
 
     handleSort = (e) => {
@@ -78,6 +83,12 @@ class Recipes extends React.Component {
         } else {
             return allRecipes
         }            
+    }
+
+    onShowShortList = () => {
+        this.setState({
+            activeShortRecipes: this.props.allRecipes
+        });
     }
 
     sorting(arrayOfRecipes, directionOfSort) {
@@ -105,11 +116,10 @@ class Recipes extends React.Component {
 
     render() {
         const { isFetching, allRecipes } = this.props;
-        const { activeRecipe, searchValue, directionOfSort} = this.state;
-        
+        const { activeRecipe, searchValue, directionOfSort, activeShortRecipes} = this.state;
+
         let filteredMassiveOfRecipes = this.filterList(searchValue, allRecipes);
         let sortedMas = this.sorting(filteredMassiveOfRecipes, directionOfSort);
-        console.log(sortedMas);
         return (<Container>
             <Grid centered columns={1}>
                 <Grid.Column>
@@ -128,6 +138,7 @@ class Recipes extends React.Component {
                                         listLength={allRecipes.length} 
                                         onChange={this.setSearchValue}
                                         onDirectionSort={this.handleSort} 
+                                        onShowShortList={this.onShowShortList}
                                     />
                                     <RecipeList
                                         recipes={sortedMas}
@@ -144,6 +155,11 @@ class Recipes extends React.Component {
             </Grid>
             <RecipeModal 
                 recipe={activeRecipe} 
+                onClose={this.handleModalClose} 
+                onUpdateRating={this.handleUpdateRating}
+            />
+            <RecipeModals
+                recipes={activeShortRecipes} 
                 onClose={this.handleModalClose} 
                 onUpdateRating={this.handleUpdateRating}
             />
