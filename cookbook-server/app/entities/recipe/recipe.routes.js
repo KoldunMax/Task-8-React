@@ -24,7 +24,7 @@ recipe.route('/')
 	
 
 recipe.route('/:id')
-	.patch((req, res) => {
+	.put((req, res) => {
 		recipeService.updateRecipe(req.params.id, req.body)
 			.then(recipe => {
 				res.send(recipe);

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Segment, Form, Image, Header, Button } from 'semantic-ui-react';
+import {Rating, Segment, Form, Image, Header, Button } from 'semantic-ui-react';
 import dish from '../../assets/dish.png';
 
 
@@ -10,7 +10,8 @@ export default class RecipeForm extends React.Component {
 
         this.state = {
             title: props.initialValues.title,
-            description: props.initialValues.description
+            description: props.initialValues.description,
+            rating: props.initialValues.rating
         }
     }
 
@@ -40,7 +41,7 @@ export default class RecipeForm extends React.Component {
 
     render() {
         const { disabled, submitButtonTitle, submitButtonIcon, cancelButtonTitle, cancelButtonIcon, title: formTitle } = this.props;
-        const { title, description } = this.state;
+        const { title, description, rating } = this.state;
 
         return (<Segment.Group raised>
                 <Header block attached="top" as="h3">
@@ -58,6 +59,15 @@ export default class RecipeForm extends React.Component {
                             onChange={this.handleFieldChange}
                             disabled={disabled}
                         />
+                        <Form.Field>
+                            <label>Rating</label>
+                            <Rating 
+                                icon='star'
+                                defaultRating={rating} 
+                                maxRating={5}
+                                onRate={(evaluate) => this.handleFieldChange({target: {value: evaluate.target.getAttribute('aria-posinset'), name: 'rating'}})}
+                            />
+                        </Form.Field>
                         <Form.TextArea
                             label="Descripsion"
                             name="description"
@@ -80,7 +90,8 @@ export default class RecipeForm extends React.Component {
 RecipeForm.defaultProps = {
     initialValues: {
         title: '',
-        descripsion: ''
+        descripsion: '',
+        rating: 0
     }
 };
 
@@ -95,6 +106,7 @@ RecipeForm.propTypes ={
     cancelButtonIcon: PropTypes.string.isRequired,
     initialValues: PropTypes.shape({
         title: PropTypes.string,
-        descripsion: PropTypes.string
+        descripsion: PropTypes.string,
+        rating: PropTypes.number
     })
 };

@@ -11,7 +11,7 @@ class Api {
             GET: 'get',
             POST: 'post',
             DELETE: 'delete',
-            PATCH: 'patch' 
+            PUT: 'put' 
         }
     }
 

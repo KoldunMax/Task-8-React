@@ -41,7 +41,7 @@ class RecipeEditing extends React.Component {
 
     handleSubmit = data => {
         this.props.actions.updateRecipe({
-            ...this.props.recipe.recipe,
+            ...this.props.recipe,
             ...data
         });
     }
