@@ -18,14 +18,15 @@ const byId = (state = initialState.byId, action) => {
                      [action.payload._id]: action.payload };
         default:
             return state;
-
     }
 };
 
 const all = (state = initialState.all, action) => {
     switch (action.type) {
         case constants.FETCH_ALL_RECIPES_SUCCESS:
-            return action.payload.all;
+            {
+                return action.payload.all;
+            }
         case constants.DELETE_RECIPE_SUCCESS:
             return state.filter(id => id !== action.payload.id);
         default:
@@ -82,6 +83,7 @@ export default combineReducers({
 });
 
 export const allRecipes = ({ recipes }) => recipes.all.map(id => recipes.byId[id]);
+    console.log(allRecipes);
 export const isRecipesFetching = ({ recipes }) => recipes.isFetching;
 export const activeRecipe = ({ recipes }) => recipes.active ? recipes.byId[recipes.active] : null;
 export const recipeById = id => ({ recipes }) => recipes.byId[id];

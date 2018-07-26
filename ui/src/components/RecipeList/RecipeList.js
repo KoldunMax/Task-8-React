@@ -2,8 +2,10 @@ import React from 'react';
 import { Image, Button, Card, Rating, Container } from 'semantic-ui-react';
 import dish from '../../assets/dish.png';
 
-export default ({ recipes, onEdit, onDelete, onView }) =>
-    recipes && recipes.map((recipe, index) => (
+export default ({ recipes, onEdit, onDelete, onView }) => {
+
+
+  return recipes && recipes.map((recipe, index) => (
         <Card fluid key={index}>
             <Card.Content>
                 <Image 
@@ -49,5 +51,6 @@ export default ({ recipes, onEdit, onDelete, onView }) =>
             </Card.Content>
         </Card>
     ));
+}
  
 

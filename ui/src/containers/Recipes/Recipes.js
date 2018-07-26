@@ -10,14 +10,15 @@ import RecipeList from '../../components/RecipeList/RecipeList';
 import RecipeListHeader from '../../components/RecipeList/RecipeListHeader';
 import EmptyRecipeList from '../../components/RecipeList/EmptyRecipeList';
 import RecipeModal from '../../components/RecipeModal/RecipeModal';
-import './Recipes.css'
+import './Recipes.css';
 
 class Recipes extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            activeRecipe: null
+            activeRecipe: null,
+            searchValue: ''
         };
     }
 
@@ -25,7 +26,13 @@ class Recipes extends React.Component {
         this.props.actions.fetchAllRecipes();
     }
 
-    handleDelete = id => {
+    setSearchValue = searchLetter => {
+        this.setState({
+            searchValue: searchLetter
+        })
+    }
+
+    handleDelete = (id) => {
         this.props.actions.deleteRecipe(id);
     }
 
@@ -47,10 +54,32 @@ class Recipes extends React.Component {
         this.toggleRecipeModal(null);
     }
 
+    filterList = (searchValue, allRecipes) => {
+        var filteredList = [];
+        
+        if(searchValue) {
+            for (let i = 0; i < allRecipes.length; i++) {
+                let a = allRecipes[i];
+                if (a.title.toUpperCase().indexOf(searchValue.toUpperCase()) > -1) {
+                    filteredList.push(allRecipes[i]);
+                }
+            }
+            return filteredList;   
+        } else {
+            return allRecipes
+        }            
+    }
+
+    showState = () => {
+        console.log(this.state.searchValue);
+    }
+
     render() {
         const { isFetching, allRecipes } = this.props;
-        const { activeRecipe } = this.state;
-
+        const { activeRecipe, searchValue } = this.state;
+        
+        let filteredMassiveOfRecipes = this.filterList(searchValue, allRecipes);
+        
         return (<Container>
             <Grid centered columns={1}>
                 <Grid.Column>
@@ -67,12 +96,13 @@ class Recipes extends React.Component {
                                     <RecipeListHeader 
                                         onCreate={this.handleRecipeCreate} 
                                         listLength={allRecipes.length} 
+                                        onChange={this.setSearchValue}
                                     />
-                                    <RecipeList 
-                                        recipes={allRecipes} 
+                                    <RecipeList
+                                        recipes={filteredMassiveOfRecipes} 
                                         onView={this.toggleRecipeModal} 
                                         onDelete={this.handleDelete} 
-                                        onEdit={this.handleEdit} 
+                                        onEdit={this.handleEdit}
                                     />
                                 </React.Fragment>
                             }
@@ -93,14 +123,14 @@ Recipes.propTypes = {
     isFetching: PropTypes.bool,
     actions: PropTypes.object
 }
-
 const mapStateToProps = state => ({
     allRecipes: allRecipes(state),
     isFetching: isRecipesFetching(state)
 });
 
+
 const mapDispatchToProps =  dispatch => ({
-    actions: bindActionCreators({fetchAllRecipes,deleteRecipe}, dispatch)
+    actions: bindActionCreators({fetchAllRecipes, deleteRecipe}, dispatch)
 });
 
 export default connect(mapStateToProps,  mapDispatchToProps)(Recipes);

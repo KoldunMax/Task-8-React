@@ -14,7 +14,7 @@ export default () => {
     ];
 
     const store = createStore(
-        connectRouter(history)(rootReducer),
+        connectRouter(history)(rootReducer),   // Хранилище для главного компонента, вместе с главным редюсером, который обьеденяет остальные редюсеры
         composeWithDevTools(
             applyMiddleware(...middleware)
         )

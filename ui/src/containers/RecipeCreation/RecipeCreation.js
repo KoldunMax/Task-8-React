@@ -11,6 +11,7 @@ class Recipe extends React.Component {
 
     handleSubmit = data => {
         this.props.actions.addRecipe(data);
+        console.log(`render`, this.props);
     }
 
     handleCancel = () => {
@@ -42,7 +43,7 @@ class Recipe extends React.Component {
 
 Recipe.propTypes = {
     isFetching: PropTypes.bool, 
-    action: PropTypes.object.isRequired
+    actions: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({

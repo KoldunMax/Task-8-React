@@ -84,7 +84,7 @@ RecipeForm.defaultProps = {
     }
 };
 
-RecipeForm.PropTypes ={
+RecipeForm.propTypes ={
     disabled: PropTypes.bool,
     title: PropTypes.string.isRequired,
     onSubmit: PropTypes.func.isRequired,
