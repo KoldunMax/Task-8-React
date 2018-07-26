@@ -20,6 +20,10 @@ class RecipeService {
 	deleteRecipe(id) {
 		return recipeRepository.delete({ _id: id });
 	}
+	
+	updateRecipeRating(id, recipe) {
+		return recipeRepository.findOneAndUpdate({ _id: id }, {$set: {rating: recipe.rating}});
+	}
 }
 
 module.exports = new RecipeService();
