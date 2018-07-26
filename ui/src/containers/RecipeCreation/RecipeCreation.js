@@ -10,8 +10,8 @@ import RecipeForm from '../../components/RecipeForm/RecipeForm';
 class Recipe extends React.Component {
 
     handleSubmit = data => {
+        console.log(data);
         this.props.actions.addRecipe(data);
-        console.log(`render`, this.props);
     }
 
     handleCancel = () => {

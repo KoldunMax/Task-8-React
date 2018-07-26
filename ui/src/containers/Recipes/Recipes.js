@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Container, Image, Grid, Segment } from 'semantic-ui-react';
-import { fetchAllRecipes, deleteRecipe } from './RecipesActions';
+import { fetchAllRecipes, deleteRecipe, updateRecipeRating } from './RecipesActions';
 import { allRecipes, isRecipesFetching } from './RecipesReducer';
 import logo from '../../assets/logo.png';
 import RecipeList from '../../components/RecipeList/RecipeList';
@@ -43,6 +43,10 @@ class Recipes extends React.Component {
     handleRecipeCreate = () => {
         this.props.history.push(`/recipes/new`);
     }
+    handleUpdateRating = (recipe) => {
+        console.log(recipe);
+        this.props.actions.updateRecipeRating(recipe);
+    }
 
     toggleRecipeModal = id => {
         this.setState({
@@ -79,8 +83,8 @@ class Recipes extends React.Component {
         const { activeRecipe, searchValue } = this.state;
         
         let filteredMassiveOfRecipes = this.filterList(searchValue, allRecipes);
-        console.log(filteredMassiveOfRecipes);
-        return (<Container>
+       
+       return (<Container>
             <Grid centered columns={1}>
                 <Grid.Column>
                     <Image src={logo} centered />
@@ -99,7 +103,8 @@ class Recipes extends React.Component {
                                         onChange={this.setSearchValue}
                                     />
                                     <RecipeList
-                                        recipes={filteredMassiveOfRecipes} 
+                                        recipes={filteredMassiveOfRecipes}
+                                        onUpdateRating={this.handleUpdateRating}
                                         onView={this.toggleRecipeModal} 
                                         onDelete={this.handleDelete} 
                                         onEdit={this.handleEdit}
@@ -130,7 +135,7 @@ const mapStateToProps = state => ({
 
 
 const mapDispatchToProps =  dispatch => ({
-    actions: bindActionCreators({fetchAllRecipes, deleteRecipe}, dispatch)
+    actions: bindActionCreators({fetchAllRecipes, deleteRecipe, updateRecipeRating}, dispatch)
 });
 
 export default connect(mapStateToProps,  mapDispatchToProps)(Recipes);

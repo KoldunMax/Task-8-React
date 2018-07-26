@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, Button, Card, Rating} from 'semantic-ui-react';
 import dish from '../../assets/dish.png';
 
-export default ({ recipes, onEdit, onDelete, onView }) => (
+export default ({ recipes, onEdit, onDelete, onView, onUpdateRating }) => (
 
 <Card.Group itemsPerRow={3} centered style={{ marginTop: '.8rem' }}>
    {recipes && recipes.map((recipe, index) => (
@@ -14,6 +14,11 @@ export default ({ recipes, onEdit, onDelete, onView }) => (
                     icon='star'
                     defaultRating={recipe.rating} 
                     maxRating={5}
+                    onRate={(evaluate) => {
+                        recipe.rating = evaluate.target.getAttribute('aria-posinset');
+                        console.log(recipe.rating);
+                        return onUpdateRating && onUpdateRating(recipe)
+                    }}
                   //  onClick={() => onRating && onRating(recipe._id)}
                  /></Card.Meta>
                 <Card.Description>

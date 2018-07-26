@@ -21,6 +21,14 @@ export const updateRecipe = recipe => ({
     payload: recipe
 });
 
+export const updateRecipeRating = (recipe) => ({
+    type: constants.UPDATE_RATING,
+    payload: {
+        id: recipe._id,
+        rating: recipe.rating
+        }
+});
+
 export const deleteRecipe = id => ({
     type: constants.DELETE_RECIPE,
     payload: {
