@@ -17,6 +17,7 @@ export default ({ onCreate, listLength, onChange }) => (
             labelPosition='left'
         />
         <Input 
+            style={{width: '30%'}}
             icon='search' 
             placeholder='Search...' 
             onChange={e => onChange && onChange(e.target.value)}

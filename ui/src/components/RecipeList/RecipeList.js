@@ -1,56 +1,48 @@
 import React from 'react';
-import { Image, Button, Card, Rating, Container } from 'semantic-ui-react';
+import { Image, Button, Card, Rating} from 'semantic-ui-react';
 import dish from '../../assets/dish.png';
 
-export default ({ recipes, onEdit, onDelete, onView }) => {
+export default ({ recipes, onEdit, onDelete, onView }) => (
 
-
-  return recipes && recipes.map((recipe, index) => (
-        <Card fluid key={index}>
+<Card.Group itemsPerRow={3} centered style={{ marginTop: '.8rem' }}>
+   {recipes && recipes.map((recipe, index) => (
+        <Card key={index}>
             <Card.Content>
-                <Image 
-                    size="tiny" 
-                    floated="left" 
-                    src={dish} 
-                />
+                <Image centered src={dish} style={{ marginBottom: '.5rem' }}/>
+                <Card.Header>{recipe.title}</Card.Header>
+                <Card.Meta><Rating 
+                    icon='star'
+                    defaultRating={0} 
+                    maxRating={5} 
+                 /></Card.Meta>
+                <Card.Description>
+                    {recipe.description}
+                </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+                <div className='ui three buttons'>
                 <Button 
-                    circular 
-                    color="red" 
-                    icon="trash" 
+                    icon="eye" 
                     floated="right" 
-                    onClick={() => onDelete && onDelete(recipe._id)} 
+                    onClick={() => onView && onView(recipe._id)} 
                 />
                 <Button 
-                    circular 
                     icon="pencil" 
                     floated="right" 
                     onClick={() => onEdit && onEdit(recipe._id)} 
                 />
                 <Button 
-                    circular 
-                    icon="eye" 
+                    color="red" 
+                    icon="trash" 
                     floated="right" 
-                    onClick={() => onView && onView(recipe._id)} 
+                    onClick={() => onDelete && onDelete(recipe._id)} 
                 />
-                <Rating 
-                    icon='star'
-                    className="right floated"
-                    defaultRating={0} 
-                    maxRating={5} 
-                />
-                <Card.Header style={{ marginTop: '1.5em' }}>
-                    {recipe.title}
-                </Card.Header>
-
-                <Card.Description 
-                    textAlign="left" 
-                    className="recipe-description"
-                >
-                    {recipe.description}
-                </Card.Description>
+                </div>
             </Card.Content>
         </Card>
-    ));
-}
+    ))
+    }
+    </Card.Group>
+)
  
 
