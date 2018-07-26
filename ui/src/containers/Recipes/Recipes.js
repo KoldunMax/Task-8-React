@@ -79,7 +79,7 @@ class Recipes extends React.Component {
         const { activeRecipe, searchValue } = this.state;
         
         let filteredMassiveOfRecipes = this.filterList(searchValue, allRecipes);
-        
+        console.log(filteredMassiveOfRecipes);
         return (<Container>
             <Grid centered columns={1}>
                 <Grid.Column>

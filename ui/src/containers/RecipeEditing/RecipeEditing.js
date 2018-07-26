@@ -28,13 +28,13 @@ class RecipeEditing extends React.Component {
 
     componentDidMount() {
         if (this.state.recipeToFetch) {
-            this.props.action.fetchRecipe(this.state.recipeToFetch);
+            this.props.actions.fetchRecipe(this.state.recipeToFetch);
         }
     }
 
     componentDidUpdate() {
         if (this.props.recipe && (this.state.recipeToFetch !== this.props.recipe._id)) {
-            this.props.action.fetchRecipe(this.state.recipeToFetch);
+            this.props.actions.fetchRecipe(this.state.recipeToFetch);
         }
     }
 
@@ -78,7 +78,7 @@ class RecipeEditing extends React.Component {
 RecipeEditing.propTypes = {
     recipe: PropTypes.object,
     isFetching: PropTypes.bool,
-    action: PropTypes.object.isRequired
+    actions: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({

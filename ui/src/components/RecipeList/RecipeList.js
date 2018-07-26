@@ -12,8 +12,9 @@ export default ({ recipes, onEdit, onDelete, onView }) => (
                 <Card.Header>{recipe.title}</Card.Header>
                 <Card.Meta><Rating 
                     icon='star'
-                    defaultRating={0} 
-                    maxRating={5} 
+                    defaultRating={recipe.rating} 
+                    maxRating={5}
+                  //  onClick={() => onRating && onRating(recipe._id)}
                  /></Card.Meta>
                 <Card.Description>
                     {recipe.description}
